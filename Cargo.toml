@@ -1,0 +1,5 @@
+[package]
+
+name = "rust-euler"
+version = "0.0.1"
+authors = ["Nicholas Hollett <niax@niax.co.uk>"]
