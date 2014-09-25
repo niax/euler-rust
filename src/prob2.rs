@@ -30,7 +30,7 @@ impl Iterator<uint> for FibonacciIterator {
 }
 /// Returns the sum of the fibonacci numbers less than `target`
 fn sum_fibonacci(target: uint) -> uint{
-    let mut iter = FibonacciIterator::new(target);
+    let mut iter = FibonacciIterator::new(target).filter(|a| { *a % 2 == 0 });
     iter.sum()
 }
 
@@ -50,11 +50,11 @@ mod test {
 
     #[test]
     fn provided_example() {
-        assert_eq!(sum_fibonacci(89), 231u);
+        assert_eq!(sum_fibonacci(89), 44u);
     }
 
     #[test]
     fn expected_result() {
-        assert_eq!(sum_fibonacci(4_000_000), 9227463u);
+        assert_eq!(sum_fibonacci(4_000_000), 4613732u);
     }
 }
