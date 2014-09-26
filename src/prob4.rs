@@ -14,7 +14,6 @@ fn is_palindrome(num: uint) -> bool {
 
 fn largest_palindrome_product(digits: uint) -> uint {
     let max = num::pow(10u, digits);
-    let min = 0u;
     let mut results = PriorityQueue::new();
     
     for i in range(max/2, max).rev() {
@@ -43,12 +42,12 @@ mod test {
 
     #[test]
     fn provided_example() {
-        assert_eq!(largest_palindrome_product(2), 906609);
+        assert_eq!(largest_palindrome_product(2), 9009);
     }
 
     #[test]
     fn expected_result() {
-        assert_eq!(largest_palindrome_product(3), 90909);
+        assert_eq!(largest_palindrome_product(3), 906609);
     }
 }
 
