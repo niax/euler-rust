@@ -1,7 +1,7 @@
 use common::{FactorIterator,is_prime};
 
 fn largest_prime_factor(value: uint) -> Option<uint> {
-    let max = (value as f64).sqrt().ceil();
+    let max = (value as f64).sqrt().floor();
     let iter = FactorIterator::new(value, max as uint);
     let mut filtered = iter.filter(|x| { is_prime(*x) });
     filtered.max_by(|x| { *x })
