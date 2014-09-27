@@ -25,8 +25,10 @@ impl Iterator<uint> for PrimeIterator {
         loop {
             self.current += 1;
             let mut good = true;
+            // limit division testing by the largest possible factor
+            let max_factor = (self.current as f64).sqrt().ceil() as uint;
             for &i in self.previous.iter() {
-                if self.current % i == 0 {
+                if self.current % i == 0 && i <= max_factor {
                     good = false;
                     break;
                 }
@@ -64,11 +66,11 @@ mod test {
 
     #[test]
     fn provided_example() {
-        //assert_eq!(nth_prime(6), 13);
+        assert_eq!(nth_prime(6), 13);
     }
 
     #[test]
     fn expected_result() {
-       // assert_eq!(nth_prime(10_001), 104743);
+       assert_eq!(nth_prime(10_001), 104743);
     }
 }
