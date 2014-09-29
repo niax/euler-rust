@@ -184,7 +184,6 @@ mod test {
             947, 953, 967, 971, 977, 983, 991, 997, 1009, 1013
         ];
         for i in primes.iter() {
-            println!("Looking for {}", *i);
             assert_eq!(iter.next().unwrap(), *i);
         }
     }
