@@ -18,7 +18,6 @@ impl Iterator<uint> for PrimeIterator {
         if self.current == 1 {
             self.current = 2;
             self.previous.push(2);
-            println!("{}", self.current);
             return Some(2);
         }
 
@@ -36,7 +35,6 @@ impl Iterator<uint> for PrimeIterator {
 
             if good {
                 self.previous.push(self.current);
-                println!("{}", self.current);
                 return Some(self.current);
             }
         }

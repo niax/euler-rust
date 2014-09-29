@@ -18,9 +18,6 @@ impl Iterator<uint> for FactorIterator {
     fn next(&mut self) -> Option<uint> {
         self.current += 1;
         while self.current < self.max {
-            if self.current % 1_000_000 == 0 {
-                println!("At {}", self.current);
-            }
             if self.value % self.current == 0 {
                 return Some(self.current)
             }
