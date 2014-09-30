@@ -10,6 +10,7 @@ pub mod prob7;
 pub mod prob8;
 pub mod prob9;
 pub mod prob10;
+pub mod prob11;
 
 // Internal modules
 mod common;
