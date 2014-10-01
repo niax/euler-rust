@@ -15,12 +15,17 @@ impl FactorIterator {
             max: limit,
         }
     }
+
+    pub fn default_max(value: uint) -> FactorIterator {
+        let max = (value as f64).sqrt().ceil();
+        FactorIterator::new(value, max as uint)
+    }
 }
 
 impl Iterator<uint> for FactorIterator {
     fn next(&mut self) -> Option<uint> {
         self.current += 1;
-        while self.current < self.max {
+        while self.current <= self.max {
             if self.value % self.current == 0 {
                 return Some(self.current)
             }
@@ -85,6 +90,25 @@ impl PrimeIterator {
         }
     }
 
+    /// Create a new prime iterator starting at 2 with the internal
+    /// data structures already calculated up to at least size
+    pub fn new_with_size(size: uint) -> PrimeIterator {
+        let mut iter = PrimeIterator::new();
+        while iter.bitv.len() < size {
+            iter.grow_table();
+        }
+        iter
+    }
+
+    /// Create a new prime iterator starting at 2 based off the 
+    /// calculations already performed by a previous iterator
+    pub fn new_from_seed(seed: &PrimeIterator) -> PrimeIterator {
+        PrimeIterator {
+            current: 0,
+            bitv: seed.bitv.clone(),
+        }
+    }
+
     // Double the size of the bitv
     fn grow_table(&mut self) {
         let first_number = self.bitv.len();
@@ -139,7 +163,7 @@ mod test {
     fn test_factorization() {
         let mut iter = FactorIterator::new(22, 22);
         let result: Vec<uint> = iter.collect();
-        assert_eq!(result, vec![1, 2, 11]);
+        assert_eq!(result, vec![1, 2, 11, 22]);
     }
 
     #[test]
