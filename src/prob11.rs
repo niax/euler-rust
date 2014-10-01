@@ -44,10 +44,12 @@ fn find_greatest_product(input_grid: Vec<Vec<uint>>) -> uint {
             let mut product = 1u;
             for i in range(0, 4) {
                 let (dir_x, dir_y) = *dir;
-                let cell_x = cell.x + (i * dir_x);
-                let cell_y = cell.y + (i * dir_y);
-                if cell_x < 0 || cell_x >= input_grid.len() ||
-                        cell_y < 0 || cell_y >= input_grid.len() {
+                let signed_cell_x: int = (cell.x as int) + (i * dir_x);
+                let signed_cell_y: int = (cell.y as int) + (i * dir_y);
+                let cell_x = signed_cell_x as uint;
+                let cell_y = signed_cell_y as uint;
+                if signed_cell_x < 0 || cell_x >= input_grid.len() ||
+                        signed_cell_y < 0 || cell_y >= input_grid.len() {
                     continue;
                 }
 
