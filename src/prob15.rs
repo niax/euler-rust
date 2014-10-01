@@ -1,4 +1,4 @@
-use common::Factorial;
+use common::math::Factorial;
 
 fn path_count(n: uint) -> uint {
     // Make n a float because uint won't hold large enough numbers

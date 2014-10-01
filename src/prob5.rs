@@ -1,4 +1,4 @@
-use common::lcm;
+use common::math::lcm;
 
 /// Returns the smallest number than can divided by all numbers between one and `target`
 fn smallest_multiple(target: uint) -> uint {

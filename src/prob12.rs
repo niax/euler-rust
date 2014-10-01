@@ -1,4 +1,4 @@
-use common::{PrimeIterator, is_prime};
+use common::primes::{PrimeIterator, is_prime};
 use std::collections::HashMap;
 
 
@@ -51,7 +51,7 @@ fn p(divisor_count: uint) -> uint {
 #[cfg(test)]
 mod test {
     use super::{p, prime_factors};
-    use common::PrimeIterator;
+    use common::primes::PrimeIterator;
     use std::collections::HashMap;
 
     #[test]

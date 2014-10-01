@@ -1,4 +1,5 @@
-use common::{FactorIterator,is_prime};
+use common::factors::FactorIterator;
+use common::primes::is_prime;
 
 fn largest_prime_factor(value: uint) -> Option<uint> {
     let max = (value as f64).sqrt().floor();

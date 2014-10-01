@@ -1,4 +1,4 @@
-use common::PrimeIterator;
+use common::primes::PrimeIterator;
 
 fn sum_of_primes(less_than: uint) -> uint {
     let mut sum = 0u;
