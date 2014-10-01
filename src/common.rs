@@ -1,6 +1,8 @@
 use std::iter::range_step;
 use std::collections::Bitv;
 
+use std::num::{one, One};
+
 pub struct FactorIterator {
     value: uint,
     current: uint,
@@ -67,6 +69,17 @@ pub fn lcm(a: uint, b: uint) -> uint {
         0
     } else {
         (a * b) / gcd(a, b)
+    }
+}
+
+pub trait Factorial {
+    /// Calculate a factorial n!
+    fn factorial(&self) -> Self;
+}
+
+impl<T: One + PartialOrd + Clone + Add<T, T> + Mul<T, T> + ToPrimitive> Factorial for T {
+    fn factorial(&self) -> T {
+        range(one::<T>(), *self + one::<T>()).fold(one::<T>(), |a, b| { a * b })
     }
 }
 
@@ -157,7 +170,7 @@ impl Iterator<uint> for PrimeIterator {
 
 #[cfg(test)]
 mod test {
-    use super::{FactorIterator, is_prime, lcm, gcd, PrimeIterator};
+    use super::{FactorIterator, is_prime, lcm, gcd, Factorial, PrimeIterator};
 
     #[test]
     fn test_factorization() {
@@ -183,6 +196,13 @@ mod test {
     fn test_greatest_common_divisor() {
         assert_eq!(gcd(5, 5), 5);
         assert_eq!(gcd(54, 24), 6);
+    }
+
+    #[test]
+    fn test_factorial() {
+        assert_eq!(5u.factorial(), 120u);
+        assert_eq!(5i.factorial(), 120i);
+        assert_eq!((5.0 as f64).factorial(), 120.0);
     }
 
     #[test]
