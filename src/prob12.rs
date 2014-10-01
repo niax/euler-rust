@@ -1,37 +1,6 @@
-use common::primes::{PrimeIterator, is_prime};
-use std::collections::HashMap;
+use common::primes::PrimeIterator;
+use common::factors::prime_factors;
 
-
-fn prime_factors_recurse(n: uint, prime_seed: &PrimeIterator, factors: &mut HashMap<uint, uint>) {
-    let mut prime_iter = PrimeIterator::new_from_seed(prime_seed);
-    let new_factor = if is_prime(n) {
-        n
-    } else {
-        let mut fact = 0u;
-        for i in prime_iter {
-            if n % i == 0 {
-                prime_factors_recurse(n / i, prime_seed, factors);
-                fact = i;
-                break;
-            }
-        }
-        fact
-    };
-
-    let new_count = match factors.find(&new_factor) {
-        Some(old_count) => old_count + 1,
-        None => 1
-    };
-    factors.insert(new_factor, new_count);
-}
-
-fn prime_factors(n: uint, prime_seed: &PrimeIterator) -> HashMap<uint, uint> {
-    let mut factors: HashMap<uint, uint> = HashMap::new();
-
-    prime_factors_recurse(n, prime_seed, &mut factors);
-
-    factors
-}
 
 fn p(divisor_count: uint) -> uint {
     let prime_seed = PrimeIterator::new_with_size(8192);
@@ -50,19 +19,7 @@ fn p(divisor_count: uint) -> uint {
 
 #[cfg(test)]
 mod test {
-    use super::{p, prime_factors};
-    use common::primes::PrimeIterator;
-    use std::collections::HashMap;
-
-    #[test]
-    fn test_prime_factors() {
-        let prime_seed = PrimeIterator::new_with_size(1024);
-        let factors = prime_factors(864, &prime_seed);
-        let mut expected = HashMap::new();
-        expected.insert(2u, 5u);
-        expected.insert(3u, 3u);
-        assert_eq!(factors, expected);
-    }
+    use super::p;
 
     #[test]
     fn provided_example() {
