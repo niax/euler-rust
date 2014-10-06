@@ -17,6 +17,7 @@ pub mod prob14;
 pub mod prob15;
 pub mod prob16;
 pub mod prob17;
+pub mod prob18;
 
 // Internal modules
 mod common;
