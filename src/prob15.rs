@@ -1,5 +1,6 @@
 use common::math::Factorial;
 
+/// Find the number of paths through a grid lattice of size `n`x`n`
 fn path_count(n: uint) -> uint {
     // Make n a float because uint won't hold large enough numbers
     let float_n = n as f64;

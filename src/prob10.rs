@@ -1,5 +1,6 @@
 use common::primes::PrimeIterator;
 
+/// Calculate the sum of primes that are less than `less_than`
 fn sum_of_primes(less_than: uint) -> uint {
     let mut sum = 0u;
     let mut iter = PrimeIterator::new();

@@ -1,3 +1,4 @@
+/// Iterator over the numbers in the Collatz sequence
 struct CollatzIterator {
     current: uint,
     first: bool,
@@ -15,12 +16,13 @@ impl CollatzIterator {
 impl Iterator<uint> for CollatzIterator {
     fn next(&mut self) -> Option<uint> {
         if self.current == 1 {
+            // If we've reached 1, we're at the end of the sequence
             None
         } else if self.first {
             // Handle first number
             self.first = false;
             Some(self.current)
-        }else {
+        } else {
             self.current = if self.current % 2 == 0 {
                 // n is even -> n/2
                 self.current / 2
@@ -33,6 +35,7 @@ impl Iterator<uint> for CollatzIterator {
     }
 }
 
+/// Find the longest Collatz sequence with a starting value less than `less_than`
 fn find_longest_chain(less_than: uint) -> uint {
     let mut longest_length = 1u;
     let mut longest_starting = 1u;

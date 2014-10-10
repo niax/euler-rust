@@ -1,6 +1,6 @@
 use std::num;
-use std::collections::PriorityQueue;
 
+// Returns true of the number is a palindrome 
 fn is_palindrome(num: uint) -> bool {
     let s = num.to_string();
     let b = s.as_bytes();
@@ -12,20 +12,22 @@ fn is_palindrome(num: uint) -> bool {
     true
 }
 
+/// Returns the largest product between 0 and 10^(digits) that is
+/// a palindrome
 fn largest_palindrome_product(digits: uint) -> uint {
     let max = num::pow(10u, digits);
-    let mut results = PriorityQueue::new();
-    
+    let mut largest = 0u;
+
     for i in range(max/2, max).rev() {
         for j in range(0, max).rev() {
             let k = i * j;
-            if is_palindrome(k) {
-                results.push(k);
+            if is_palindrome(k) && k > largest {
+                largest = k;
             }
         }
     }
 
-    *results.top().unwrap()
+    largest
 }
 
 #[cfg(test)]

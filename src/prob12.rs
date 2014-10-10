@@ -1,8 +1,8 @@
 use common::primes::PrimeIterator;
 use common::factors::prime_factors;
 
-
-fn p(divisor_count: uint) -> uint {
+/// Finds the first triangle number with more than `divisor_count` divisors.
+fn divisible_triangle_number(divisor_count: uint) -> uint {
     let prime_seed = PrimeIterator::new_with_size(8192);
     let mut i = 2u;
     loop {
@@ -19,15 +19,15 @@ fn p(divisor_count: uint) -> uint {
 
 #[cfg(test)]
 mod test {
-    use super::p;
+    use super::divisible_triangle_number;
 
     #[test]
     fn provided_example() {
-        assert_eq!(p(5), 28u);
+        assert_eq!(divisible_triangle_number(5), 28u);
     }
 
     #[test]
     fn expected_result() {
-        assert_eq!(p(500), 76576500u);
+        assert_eq!(divisible_triangle_number(500), 76576500u);
     }
 }

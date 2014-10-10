@@ -1,5 +1,6 @@
 use std::iter::AdditiveIterator;
 
+/// Iterator over multiples of 3 or 5
 struct MultipleIterator {
     current: uint,
     max: uint,

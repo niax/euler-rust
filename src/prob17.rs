@@ -1,45 +1,49 @@
-static base_numbers: [&'static str, .. 21] = [
+static BASE_NUMBERS: [&'static str, .. 21] = [
     "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
     "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"
 ];
 
-static tens: [&'static str, .. 10] = [
+static TENS: [&'static str, .. 10] = [
     "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"
 ];
 
+/// Returns the given `n` as a string of words
+/// 
+/// *NOTE* - `n` must be less than 10000 and not negative.
 fn number_as_words(n: uint) -> String {
     match n {
-        0..20 => base_numbers[n].to_string(),
-        20..99 => {
+        0...20 => BASE_NUMBERS[n].to_string(),
+        20...99 => {
             if n % 10 == 0 {
-                tens[n/10].to_string()
+                TENS[n/10].to_string()
             } else {
-                format!("{}-{}", tens[n/10], base_numbers[n % 10])
+                format!("{}-{}", TENS[n/10], BASE_NUMBERS[n % 10])
             }
         },
-        100..999  => {
+        100...999  => {
             if n % 100 == 0 {
-                format!("{} hundred", base_numbers[n/100])
+                format!("{} hundred", BASE_NUMBERS[n/100])
             } else {
-                format!("{} hundred and {}", base_numbers[n/100], number_as_words(n % 100))
+                format!("{} hundred and {}", BASE_NUMBERS[n/100], number_as_words(n % 100))
             }
         },
-        1000..9999  => {
+        1000...9999  => {
             if n % 1000 == 0 {
-                format!("{} thousand", base_numbers[n/1000])
+                format!("{} thousand", BASE_NUMBERS[n/1000])
             } else {
-                format!("{} thousand {}", base_numbers[n/1000], number_as_words(n % 1000))
+                format!("{} thousand {}", BASE_NUMBERS[n/1000], number_as_words(n % 1000))
             }
         },
         _ => fail!("Don't know this number")
     }
 }
 
+/// Returns the number of characters (exclusive of spaces and hyphens) used when
+/// writing out the numbers one to `max`.
 fn sum_char_count(max: uint) -> uint {
     let mut sum = 0u;
     for i in range(1, max + 1) {
         let words = number_as_words(i);
-        println!("{}", words);
         // Spaces and hyphens don't count for our character count
         sum += words.replace(" ", "").replace("-", "").len();
     }

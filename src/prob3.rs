@@ -1,9 +1,14 @@
 use common::factors::prime_factors;
 use common::primes::PrimeIterator;
 
+/// Find the largest prime factor of `value`
 fn largest_prime_factor(value: uint) -> uint {
+    // Make a pre-seeded prime generator for prime_factors to use
     let prime_seed = PrimeIterator::new_with_size(2048);
+    // Discover prime factors (as a x -> exp HashMap, where x is the prime, and exp is the number
+    // of times that prime appears in the factorization)
     let prime_factors = prime_factors(value, &prime_seed);
+    // Find the largest key (prime factor)
     *(prime_factors.keys().max_by(|x| { *x }).unwrap())
 }
 

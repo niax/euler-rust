@@ -1,9 +1,11 @@
 use std::cmp::max;
 
+/// Calculate the maximum path decending through the given `triangle`
 pub fn max_total(triangle: Vec<Vec<uint>>) -> uint {
-    let mut max_to_node: Vec<Vec<uint>> = Vec::new();
+    // previous_layer holds the maximum path to the nodes on the previous layer
     let mut previous_layer = Vec::new();
     for layer in triangle.iter() {
+        // layer_max holds the current layer's maximum path costs
         let mut layer_max = Vec::new();
 
         for (i, &node) in layer.iter().enumerate() {
@@ -23,8 +25,8 @@ pub fn max_total(triangle: Vec<Vec<uint>>) -> uint {
         }
 
         previous_layer = layer_max.clone();
-        max_to_node.push(layer_max);
     }
+    // Find the largest value in the last layer to be processed
     *(previous_layer.iter().max().unwrap())
 }
 

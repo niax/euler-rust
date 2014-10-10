@@ -1,5 +1,6 @@
 use std::collections::PriorityQueue;
 
+/// Represents a pair of numbers that are Coprime
 #[deriving(Show,PartialEq,Eq)]
 struct CoprimePair {
     m: uint,
@@ -22,6 +23,7 @@ impl PartialOrd for CoprimePair {
     }
 }
 
+/// Iterator over pairs of numbers that are Coprime
 struct CoprimePairIterator {
     fringe: PriorityQueue<CoprimePair>,
     next_values: Vec<CoprimePair>,
@@ -39,6 +41,7 @@ impl CoprimePairIterator {
 impl Iterator<CoprimePair> for CoprimePairIterator {
     fn next(&mut self) -> Option<CoprimePair> {
         if self.next_values.len() > 0 {
+            // If we have a value already calculated, use that!
             self.next_values.pop()
         } else {
             // Use the fringe to find the next values
@@ -66,6 +69,7 @@ impl Iterator<CoprimePair> for CoprimePairIterator {
     }
 }
 
+/// Represents a Pythagorean triple, `(a, b, c)` multiplied by constant, `k`
 #[deriving(Show,PartialEq,Eq)]
 struct PythagoreanTriple {
     primitive_triple: (uint, uint, uint),
@@ -73,13 +77,13 @@ struct PythagoreanTriple {
 }
 
 impl PythagoreanTriple {
-    // Return a tuple (a, b, c) for the triple
+    /// Return a tuple (a, b, c) for the triple
     pub fn triple(&self) -> (uint, uint, uint) {
         let (a, b, c) = self.primitive_triple;
         (a * self.k, b * self.k, c * self.k)
     }
 
-    // Return a new triple with the multiplication factor increased by 1
+    /// Return a new triple with the multiplication factor increased by 1
     pub fn incr_k(&self) -> PythagoreanTriple {
         PythagoreanTriple {
             primitive_triple: self.primitive_triple.clone(),
@@ -106,7 +110,7 @@ impl PartialOrd for PythagoreanTriple {
     }
 }
 
-// This iterator returns Pythagorean triples in order from smallest sum.
+/// This iterator returns Pythagorean triples in order from smallest sum.
 struct PythagoreanTripleIterator {
     coprime_iter: CoprimePairIterator,
     triple_queue: PriorityQueue<PythagoreanTriple>,
@@ -155,6 +159,7 @@ impl Iterator<PythagoreanTriple> for PythagoreanTripleIterator {
 
 
 
+/// Get the product of the Pythagorean triple who's sum is equal to `equal_to`
 fn pythagorean_triple_product(equal_to: uint) -> uint {
     let mut iter = PythagoreanTripleIterator::new();
     // Look at each triple

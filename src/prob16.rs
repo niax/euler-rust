@@ -3,6 +3,7 @@ extern crate bignum;
 use std::num::pow;
 use self::bignum::{ToBigUint, BigUint};
 
+/// Sum the base 10 digits of the number `n`
 fn sum_of_digits(n: BigUint) -> BigUint {
     let zero = 0u.to_biguint().unwrap();
     let ten = 10u.to_biguint().unwrap();
@@ -15,7 +16,9 @@ fn sum_of_digits(n: BigUint) -> BigUint {
     sum
 }
 
+/// Sum the base 10 digits of 2^`n`
 fn sum_of_power_two(n: uint) -> BigUint {
+    // Raise 2 (as a bitint) to the power of n
     let pow2 = pow(2u.to_biguint().unwrap(), n);
     sum_of_digits(pow2)
 }

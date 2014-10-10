@@ -1,5 +1,6 @@
 use std::iter::AdditiveIterator;
 
+/// Iterator over the Fibonacci series, limited by `max`
 struct FibonacciIterator {
     last: uint,
     penultimate: uint,
@@ -28,8 +29,9 @@ impl Iterator<uint> for FibonacciIterator {
         }
     }
 }
-/// Returns the sum of the fibonacci numbers less than `target`
+/// Returns the sum of the even fibonacci numbers less than `target`
 fn sum_fibonacci(target: uint) -> uint{
+    // filter the fibonacci numbers so only even numbers remain in the iterator
     let mut iter = FibonacciIterator::new(target).filter(|a| { *a % 2 == 0 });
     iter.sum()
 }
